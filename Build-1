@@ -1,0 +1,72 @@
+import java.awt.Desktop.Action;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+//import org.openqa.selenium.interactions.Action;
+
+public class Personal_Tab {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver","D:\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver(); 
+		driver.manage().window().maximize(); 
+		driver.get("http://shn-qa/PRODH/HomePage.aspx?menuitemid=211");
+		
+		/*System.setProperty("webdriver.ie.driver","C:\\MicrosoftWebDriver\\MicrosoftWebDriver_1.exe");
+		WebDriver driver = new InternetExplorerDriver();
+		driver.manage().window().maximize(); 
+		driver.get("http://shn-qa/PRODH/Admin/LoginPage.aspx");
+		*/
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
+		WebElement LoginID = driver.findElement(By.id("UCLogin_Login_ID"));
+		LoginID.sendKeys("waqas");
+		
+		WebElement Password = driver.findElement(By.id("UCLogin_Password"));
+		Password.sendKeys("abcd@1234");
+		
+		WebElement SubmitBtn = driver.findElement(By.id("UCLogin_LoginButton"));
+		SubmitBtn.click();
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
+		WebElement link_Home = driver.findElement(By.linkText("HRM"));
+		WebElement EmpInfo = driver.findElement(By.linkText("Employee Information"));
+		Actions builder = new Actions(driver);
+		// Actions builder = new Actions(driver);
+		org.openqa.selenium.interactions.Action mouseOverHome = builder
+				.moveToElement(link_Home)
+				.moveToElement(EmpInfo)
+                .pause(500)
+                .click()
+                .build();
+		
+		mouseOverHome.perform();
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		WebElement FirstName = 
+		driver.findElement(By.id(
+		"ctl00_ctl00_cphRootContent_cphEmployeeContent_ucPersonalInformationSetup_ucPersonalInformation2_First_Name"));
+		FirstName.sendKeys("abcd");
+		
+		/*Select oSelect = new Select(driver.findElement(By.id("")));
+
+		oSelect.selectByVisibleText("2010");
+		
+		WebElement */
+		
+	}
+
+}
